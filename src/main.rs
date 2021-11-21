@@ -43,7 +43,7 @@ fn main() {
         }
     }
 
-    if parsed_option.eq(&0) {
+    if arg_parse().occurrences_of("PSWD_LENGTH").eq(&0) {
         eprintln!("warning: password length was not provided. using default value.")
     };
 
