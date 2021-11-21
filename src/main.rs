@@ -1,6 +1,6 @@
 use clap::{App, Arg, ArgMatches};
 use rand::Rng;
-use std::str;
+use std::{process, str};
 
 fn main() {
     let char_set: &[u8] = b"\
@@ -15,7 +15,10 @@ fn main() {
         .value_of("PSWD_LENGTH")
         .unwrap()
         .parse::<u8>()
-        .unwrap())
+        .unwrap_or_else(|e| {
+            eprintln!("{}", e);
+            process::exit(1);
+        }))
         .map(|_| {
             let idx = rng.gen_range(0..char_set.len());
             char_set[idx] as char
