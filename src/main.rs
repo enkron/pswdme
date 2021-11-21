@@ -24,6 +24,10 @@ fn main() {
         process::exit(1);
     }
 
+    if arg_parse().occurrences_of("PSWD_LENGTH").eq(&0) {
+        eprintln!("warning: password length was not provided. using default value.")
+    };
+
     loop {
         pswd = (0..parsed_option)
             .map(|_| rand::thread_rng().gen_range('!'..='~'))
@@ -31,23 +35,26 @@ fn main() {
 
         // We have to ensure that `pswd` String contains at least one number,
         // one sign, one lowercase and one uppercase character
-        if pswd.contains(rand::thread_rng().gen_range('0'..='9'))
-            && pswd.contains(rand::thread_rng().gen_range('a'..='z'))
-            && pswd.contains(rand::thread_rng().gen_range('A'..='Z'))
-            && (pswd.contains(rand::thread_rng().gen_range('!'..='/'))
-                || pswd.contains(rand::thread_rng().gen_range(':'..='@'))
-                || pswd.contains(rand::thread_rng().gen_range('['..='`'))
-                || pswd.contains(rand::thread_rng().gen_range('{'..='~')))
-        {
+        if pswd_validation(&pswd) {
             break;
         }
     }
 
-    if arg_parse().occurrences_of("PSWD_LENGTH").eq(&0) {
-        eprintln!("warning: password length was not provided. using default value.")
-    };
-
     println!("{}", pswd);
+}
+
+fn pswd_validation(char_seq: &String) -> bool {
+    if char_seq.contains(rand::thread_rng().gen_range('0'..='9'))
+        && char_seq.contains(rand::thread_rng().gen_range('a'..='z'))
+        && char_seq.contains(rand::thread_rng().gen_range('A'..='Z'))
+        && (char_seq.contains(rand::thread_rng().gen_range('!'..='/'))
+            || char_seq.contains(rand::thread_rng().gen_range(':'..='@'))
+            || char_seq.contains(rand::thread_rng().gen_range('['..='`'))
+            || char_seq.contains(rand::thread_rng().gen_range('{'..='~')))
+    {
+        return true;
+    }
+    false
 }
 
 fn arg_parse() -> ArgMatches<'static> {
