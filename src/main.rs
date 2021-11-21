@@ -3,14 +3,6 @@ use rand::Rng;
 use std::{process, str};
 
 fn main() {
-    let char_set: &[u8] = b"\
-        abcdefghijklmnopqrstuvwxyz\
-        ABCDEFGHIJKLMNOPQRSTUVWXYZ\
-        !?@#$%^&*()_-=+[]{}`~\"'\
-        0123456789";
-
-    let mut rng = rand::thread_rng();
-
     let pswd: String = (0..arg_parse()
         .value_of("PSWD_LENGTH")
         .unwrap()
@@ -19,10 +11,7 @@ fn main() {
             eprintln!("{}", e);
             process::exit(1);
         }))
-        .map(|_| {
-            let idx = rng.gen_range(0..char_set.len());
-            char_set[idx] as char
-        })
+        .map(|_| rand::thread_rng().gen_range('!'..'~'))
         .collect();
 
     if arg_parse().occurrences_of("PSWD_LENGTH").eq(&0) {
