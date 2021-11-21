@@ -76,7 +76,7 @@ fn arg_parse() -> ArgMatches<'static> {
         .after_help(
             "Super trivial program that generates random password.\n\
         If `PSWD_LENGTH` option is not provided the programs uses default \
-        lenght value, which is 12.",
+        length value, which is 12.",
         )
         .get_matches()
 }
