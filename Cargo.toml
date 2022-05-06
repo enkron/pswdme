@@ -2,6 +2,7 @@
 name = "pswdme"
 version = "0.2.0"
 edition = "2021"
+authors = ["Sergei Belokon <srj.belokon@gmail.com>"]
 description = """
 Super trivial program that generates random password.
 If `PSWD_LENGTH` option is not provided the programs uses default
