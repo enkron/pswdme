@@ -36,6 +36,8 @@ fn main() {
                 break;
             }
         },
-        None => {}
+        None => {
+            println!("TODO: turn on interactive mode if no options provided");
+        }
     }
 }
