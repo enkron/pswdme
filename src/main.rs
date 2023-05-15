@@ -31,8 +31,8 @@ fn main() {
                 .map(|_| thread_rng().gen_range('!'..='~'))
                 .collect();
 
-            if validate(&pswd) {
-                println!("{pswd}");
+            if let Ok(v) = validate(&pswd) {
+                println!("{v}");
                 break;
             }
         },
