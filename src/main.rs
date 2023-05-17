@@ -15,7 +15,7 @@ struct Args {
 
 #[derive(Subcommand)]
 enum Commands {
-    #[command(aliases = ["g", "gen"], about = "Generate password according to options")]
+    #[command(aliases = ["g", "gen"], about = "Password generator")]
     Generate {
         #[arg(index = 1, help = "Password length")]
         length: u8,
