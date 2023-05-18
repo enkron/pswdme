@@ -3,6 +3,7 @@ use rand::{thread_rng, Rng};
 
 mod validation;
 use crate::validation::validate;
+use crate::validation::ValidationError;
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -31,9 +32,15 @@ fn main() {
                 .map(|_| thread_rng().gen_range('!'..='~'))
                 .collect();
 
-            if let Ok(v) = validate(&pswd) {
-                println!("{v}");
-                break;
+            match validate(&pswd) {
+                Ok(v) => {
+                    println!("{v}");
+                    break;
+                }
+                Err(e) => match e {
+                    ValidationError::WeakPassword => continue,
+                    ValidationError::TooShortPassword(s) => panic!("{s}"),
+                },
             }
         },
         None => {
