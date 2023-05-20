@@ -1,5 +1,6 @@
 use rand::{thread_rng, Rng};
-use std::{error::Error, fmt};
+
+use crate::error::ValidationError;
 
 const MIN_PASSWORD_LENGHT: usize = 4;
 
@@ -22,23 +23,4 @@ pub fn validate(seq: &String) -> Result<&str, ValidationError> {
         return Err(ValidationError::WeakPassword);
     }
     Ok(seq)
-}
-
-#[derive(Debug)]
-pub enum ValidationError {
-    WeakPassword,
-    TooShortPassword(String),
-}
-
-impl Error for ValidationError {}
-
-impl fmt::Display for ValidationError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            ValidationError::WeakPassword => write!(f, "{:?}", self),
-            ValidationError::TooShortPassword(s) => {
-                writeln!(f, "{s}")
-            }
-        }
-    }
 }

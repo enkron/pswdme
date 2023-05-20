@@ -1,9 +1,10 @@
 use clap::{Parser, Subcommand};
 use rand::{thread_rng, Rng};
 
+mod error;
 mod validation;
+use crate::error::ValidationError;
 use crate::validation::validate;
-use crate::validation::ValidationError;
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
